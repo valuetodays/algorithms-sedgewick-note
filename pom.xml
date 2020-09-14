@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>algorithms-sedgewick-note</groupId>
+    <artifactId>parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>stdlib</module>
+        <module>chapter1-fundamentals</module>
+    </modules>
+
+    <properties>
+        <encoding>utf-8</encoding>
+        <skipUnitTest>true</skipUnitTest>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <encoding>${encoding}</encoding>
+                    <parameters>true</parameters>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skip>${skipUnitTest}</skip>
+                    <skipTests>${skipUnitTest}</skipTests>
+                    <includes>
+                        <include>**/*UT.java</include>
+                    </includes>
+                    <!-- 一定要加@{argLine}，不然jacoco无法生成报告 -->
+                    <argLine>@{argLine} -Dfile.encoding=${encoding}</argLine>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
